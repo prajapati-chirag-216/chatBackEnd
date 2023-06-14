@@ -7,7 +7,9 @@ const interestsRouter = require("../routes/interestsRoutes");
 const app = express();
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(cors());
+
+// app.use(cors({ origin: "http://localhost:3000" }));
 
 const server = http.createServer(app);
 
