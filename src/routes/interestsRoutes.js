@@ -17,7 +17,6 @@ router.post("/createInterest", (req, res) => {
       (value) => value === req.body?.roomName || req.body?.interest
     );
     if (!req.body?.roomName && existingInterest === -1) {
-      console.log("came");
       throw { message: "You need to select a room", status: 403 };
     }
     if (!req.body?.interest && existingInterest !== -1) {
@@ -25,7 +24,6 @@ router.post("/createInterest", (req, res) => {
     }
     res.status(200).send(interests);
   } catch (err) {
-    console.log(err);
     res.status(err.status || 404).send(err);
   }
 });
