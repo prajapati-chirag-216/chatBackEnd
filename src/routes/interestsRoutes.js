@@ -20,7 +20,7 @@ router.post("/createInterest", (req, res) => {
       throw { message: "You need to select a room", status: 403 };
     }
     if (!req.body?.interest && existingInterest !== -1) {
-      throw { message: "This room ss already in use", status: 403 };
+      throw { message: "This room is already in use", status: 403 };
     }
     res.status(200).send(interests);
   } catch (err) {
