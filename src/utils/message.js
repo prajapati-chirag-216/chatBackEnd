@@ -4,6 +4,7 @@ const genratemessage = (data) => {
     name: data.name,
     message: data.message || null,
     files: data.files || null,
+    url: data.url || null,
     privateRoom: data.privateRoom || null,
     createdAt: new Date().getTime(),
   };

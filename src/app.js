@@ -60,10 +60,35 @@ io.on("connection", (socket) => {
   socket.on("send_message", (message, callback) => {
     const user = getUser(socket.id);
     //this will send massage to all users in a room
+
     io.to(user.room).emit(
       "recive_message",
       genratemessage({ name: user.name, message, id: user.id })
     );
+    callback();
+  });
+  socket.on("send_location", (data, callback) => {
+    const user = getUser(socket.id);
+    if (data.privateRoom) {
+      io.to(data.privateRoom).emit("recive_private_message", {
+        ...genratemessage({
+          name: user.name,
+          url: `https://google.com/maps?q=${data.coords.latitude},${data.coords.longitude}`,
+          id: user.id,
+          privateRoom: data.privateRoom,
+        }),
+        user,
+      });
+    } else {
+      io.to(user.room).emit(
+        "recive_message",
+        genratemessage({
+          name: user.name,
+          url: `https://google.com/maps?q=${data.coords.latitude},${data.coords.longitude}`,
+          id: user.id,
+        })
+      );
+    }
     callback();
   });
   socket.on("send_private_message", (data, callback) => {
@@ -113,10 +138,10 @@ io.on("connection", (socket) => {
     callback();
   });
 
-  socket.on("send_Files", (files, callback) => {
+  socket.on("send_Files", (data, callback) => {
     const user = getUser(socket.id);
     const fileDetails = [];
-    files.forEach((file) => {
+    data.files.forEach((file) => {
       const filedata = {
         file: Buffer.from(file.file).toString("base64"),
         type: file.type,
@@ -124,10 +149,26 @@ io.on("connection", (socket) => {
       };
       fileDetails.push(filedata);
     });
-    io.to(user.room).emit(
-      "recive_message",
-      genratemessage({ name: user.name, files: fileDetails, id: user.id })
-    );
+    // io.to(user.room).emit(
+    //   !data.isPrivate ? "recive_message" : "recive_private_message",
+    //   genratemessage({ name: user.name, files: fileDetails, id: user.id })
+    // );
+    if (data.privateRoom) {
+      io.to(data.privateRoom).emit("recive_private_message", {
+        ...genratemessage({
+          name: user.name,
+          files: fileDetails,
+          id: user.id,
+          privateRoom: data.privateRoom,
+        }),
+        user,
+      });
+    } else {
+      io.to(user.room).emit(
+        "recive_message",
+        genratemessage({ name: user.name, files: fileDetails, id: user.id })
+      );
+    }
     callback();
   });
 
