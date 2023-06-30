@@ -20,7 +20,7 @@ module.exports = io;
 require("../app");
 app.use(interestsRouter);
 
-// server.listen(PORT, "0.0.0.0", () => {
+// server.listen(PORT, "192.168.0.106", () => {
 //   console.log(`SERVER RUNNING ON PORT ${PORT}...`);
 // });
 server.listen(PORT, () => {

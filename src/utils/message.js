@@ -7,6 +7,7 @@ const genratemessage = (data) => {
     url: data.url || null,
     privateRoom: data.privateRoom || null,
     createdAt: new Date().getTime(),
+    uploadedId: data.uploadedId || null,
   };
 };
 

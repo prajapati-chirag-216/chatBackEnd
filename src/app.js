@@ -149,10 +149,7 @@ io.on("connection", (socket) => {
       };
       fileDetails.push(filedata);
     });
-    // io.to(user.room).emit(
-    //   !data.isPrivate ? "recive_message" : "recive_private_message",
-    //   genratemessage({ name: user.name, files: fileDetails, id: user.id })
-    // );
+
     if (data.privateRoom) {
       io.to(data.privateRoom).emit("recive_private_message", {
         ...genratemessage({
@@ -160,13 +157,19 @@ io.on("connection", (socket) => {
           files: fileDetails,
           id: user.id,
           privateRoom: data.privateRoom,
+          uploadedId: data.uploadedId,
         }),
         user,
       });
     } else {
       io.to(user.room).emit(
         "recive_message",
-        genratemessage({ name: user.name, files: fileDetails, id: user.id })
+        genratemessage({
+          name: user.name,
+          files: fileDetails,
+          id: user.id,
+          uploadedId: data.uploadedId,
+        })
       );
     }
     callback();
