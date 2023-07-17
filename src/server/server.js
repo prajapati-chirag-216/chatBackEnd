@@ -19,6 +19,9 @@ const io = socketio(server);
 module.exports = io;
 require("../app");
 app.use(interestsRouter);
+app.use("/", (req, res) => {
+  res.json("Hello From Express App");
+});
 
 // server.listen(PORT, "192.168.0.106", () => {
 //   console.log(`SERVER RUNNING ON PORT ${PORT}...`);
