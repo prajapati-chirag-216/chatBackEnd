@@ -13,12 +13,7 @@ require("dotenv").config();
 // app.use(cors());
 app.use(
   cors({
-    origin: [
-      "https://shopzee.onrender.com",
-      "http://localhost:3000",
-      "http://localhost:5000",
-      "https://sz-adminpanel.onrender.com",
-    ],
+    origin: ["https://chat-front-end-lime.vercel.app"],
     credentials: true,
   })
 );
