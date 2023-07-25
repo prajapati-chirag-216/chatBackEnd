@@ -1,4 +1,4 @@
-const io = require("./server/server");
+const io = require("./server");
 const {
   addUser,
   getUser,
