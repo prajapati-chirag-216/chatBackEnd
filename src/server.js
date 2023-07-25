@@ -10,7 +10,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const PORT = process.env.PORT || 8000;
 require("dotenv").config();
 
-app.use(cors());
+// app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "https://shopzee.onrender.com",
+      "http://localhost:3000",
+      "http://localhost:5000",
+      "https://sz-adminpanel.onrender.com",
+    ],
+    credentials: true,
+  })
+);
 // app.use(cors({ origin: "http://localhost:3000" }));
 
 const server = http.createServer(app);
