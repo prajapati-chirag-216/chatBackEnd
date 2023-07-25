@@ -189,8 +189,7 @@ io.on("connection", (socket) => {
       );
       io.to(user.room).emit("room", {
         room: user.room,
-        // usersInRoom: getUsersInRoom(user.room),
-        // userRemoved: true,
+        usersInRoom: getUsersInRoom(user.room),
         removedUser: user,
       });
     }
