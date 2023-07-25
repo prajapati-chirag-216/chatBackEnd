@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const http = require("http");
 const cors = require("cors");
 const socketio = require("socket.io");
-const interestsRouter = require("./routes/interestsRoutes");
+const interestsRouter = require("../routes/interestsRoutes");
 const app = express();
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -17,7 +17,7 @@ const server = http.createServer(app);
 
 const io = socketio(server);
 module.exports = io;
-require("./app");
+require("../app");
 app.use(interestsRouter);
 app.use("/", (req, res) => {
   res.json("Hello From Express App");
