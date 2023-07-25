@@ -13,7 +13,7 @@ require("dotenv").config();
 // app.use(cors());
 app.use(
   cors({
-    origin: ["https://chat-front-end-lime.vercel.app"],
+    origin: "https://chat-front-end-lime.vercel.app",
     credentials: true,
   })
 );
